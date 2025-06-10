@@ -10,7 +10,7 @@ An open-source tool for converting Excel files into ARB (Application Resource Bu
     ```
 
 2. Prepare your Excel file:
-   - Name must follow pattern: **app_*.xlsx** (e.g., `app_translations.xlsx`)
+   - Name must follow pattern: **app_*.xlsx** (e.g., `app_my.xlsx`)
    - Structure your spreadsheet with these columns:
    
      | Key     | Value       | Description (optional) |
