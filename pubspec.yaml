@@ -1,0 +1,7 @@
+name: excel_to_arb
+
+environment:
+  sdk: ^3.7.2
+
+dev_dependencies:
+  excel: ^4.0.6
