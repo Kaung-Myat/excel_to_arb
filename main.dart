@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:excel/excel.dart';
 
 void main() {
-  const sourceDir = 'resources/l10n';
-  const targetDir = 'config/l10n';
+  const sourceDir = 'resources/l10n'; // Directory containing Excel files
+  const targetDir = 'config/l10n'; // Output directory for ARB files
 
   print('Starting Excel to ARB conversion');
   final sourcePath = Directory(sourceDir).absolute.path;
