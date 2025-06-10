@@ -1,4 +1,6 @@
 name: excel_to_arb
+description: Converts Excel files to ARB format
+version: 1.0.0
 
 environment:
   sdk: ^3.7.2
