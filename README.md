@@ -34,7 +34,7 @@ void main() {
 ## Usage
 Finally Run the generator with:
 
-> `dart run main.dart`
+> `dart convert_excel_to_arb.dart <source directory> <target directory>`
 
 
 
