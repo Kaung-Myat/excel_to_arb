@@ -20,16 +20,6 @@ An open-source tool for converting Excel files into ARB (Application Resource Bu
 
    Example files available in: `resources/l10n/`
 
-## Configuration
-Modify these paths in `main.dart`:
-```dart
-void main() {
-  const sourceDir = 'resources/l10n'; // Directory containing Excel files
-  const targetDir = 'config/l10n';    // Output directory for ARB files
-  
-  // rest of code
-}
-```
 
 ## Usage
 Finally Run the generator with:
