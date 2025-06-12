@@ -13,10 +13,10 @@ An open-source tool for converting Excel files into ARB (Application Resource Bu
    - Name must follow pattern: **app_*.xlsx** (e.g., `app_my.xlsx`)
    - Structure your spreadsheet with these columns:
    
-     | Key     | Value       | Description (optional) |
-     |---------|-------------|------------------------|
-     | hello   | မင်္ဂလာပါ  | Greeting text         |
-     | goodbye | နုတ်ဆက်ပါတယ် | Farewell text         |
+     | Key     | Value       | Description (optional) | Placeholder (name:type) |
+     |---------|-------------|------------------------|------------------------|
+     | hello   | မင်္ဂလာပါ  | Greeting text         | name:String , age: Int |
+     | goodbye | နုတ်ဆက်ပါတယ် | Farewell text         | name:String , age: Int |
 
    Example files available in: `resources/l10n/`
 

@@ -1,6 +1,16 @@
 {
   "@@locale": "en",
   "discover": "Discover",
+  "@discover": {
+    "description": "About Discover",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "profile": "Profile",
-  "setting": "Setting"
+  "@profile": {
+    "description": "About Profile"
+  }
 }

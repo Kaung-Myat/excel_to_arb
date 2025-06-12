@@ -47,6 +47,8 @@ void main(List<String> args) {
 
 void _processFile(File file, String targetDir) {
   final fileName = file.path.split(Platform.pathSeparator).last;
+
+  // Extracts locale from 'app_en.xlsx' -> 'en'
   final locale = fileName.replaceAll('app_', '').replaceAll('.xlsx', '');
 
   print('\n📋 Processing: $fileName (Locale: $locale)');
@@ -55,25 +57,75 @@ void _processFile(File file, String targetDir) {
   final excel = Excel.decodeBytes(bytes);
 
   if (excel.tables.isEmpty) {
-    print('⚠️ No worksheets found');
+    print('⚠️ No worksheets found in ${file.path}');
     return;
   }
 
+  // Get the first sheet (you might want to make this configurable)
   final sheet = excel.tables.values.first;
-  final arbContent = <String, dynamic>{'@@locale': locale};
-  int count = 0;
 
-  for (final row in sheet.rows) {
-    if (row.length < 2) continue;
+  int count = 0;
+  final arbContent = <String, dynamic>{'@@locale': locale};
+
+  // Assuming the following column structure (0-indexed):
+  // Column 0: Key
+  // Column 1: Value
+  // Column 2: Description (optional)
+  // Column 3: Placeholders (optional, format: "placeholderName:type, anotherName:type")
+
+  // If your Excel file does NOT have a header, remove `.skip(1)`
+  for (final row in sheet.rows.skip(1)) {
+    if (row.length < 2) continue; // Needs at least Key and Value
+
     final key = row[0]?.value?.toString().trim() ?? '';
     final value = row[1]?.value?.toString().trim() ?? '';
-    if (key.isEmpty) continue;
+
+    if (key.isEmpty) continue; // Skip if key is empty
 
     arbContent[key] = value;
     count++;
+
+    // Handle description (Column 2)
+    String? description;
+    if (row.length > 2 && row[2]?.value != null) {
+      description = row[2]!.value!.toString().trim();
+    }
+
+    // Handle placeholders (Column 3)
+    Map<String, dynamic>? placeholders;
+    if (row.length > 3 && row[3]?.value != null) {
+      final placeholdersString = row[3]!.value!.toString().trim();
+      if (placeholdersString.isNotEmpty) {
+        placeholders = {};
+        // Expected format: "fieldName:String, anotherName:int"
+        final entries = placeholdersString.split(',').map((e) => e.trim()).where((e) => e.isNotEmpty);
+        for (var entry in entries) {
+          final parts = entry.split(':').map((p) => p.trim()).toList();
+          if (parts.length == 2) {
+            placeholders[parts[0]] = {'type': parts[1]};
+          } else {
+            print('⚠️ Warning: Malformed placeholder entry "$entry" for key "$key". Expected "name:type".');
+          }
+        }
+      }
+    }
+
+    // Add description and placeholders to the ARB entry if they exist
+    if (description != null || placeholders != null) {
+      final meta = <String, dynamic>{};
+      if (description != null && description.isNotEmpty) {
+        meta['description'] = description;
+      }
+      if (placeholders != null && placeholders.isNotEmpty) {
+        meta['placeholders'] = placeholders;
+      }
+      if (meta.isNotEmpty) {
+        arbContent['@$key'] = meta;
+      }
+    }
   }
 
   final arbFile = File('$targetDir/app_$locale.arb');
-  arbFile.writeAsStringSync(JsonEncoder.withIndent('  ').convert(arbContent));
+  arbFile.writeAsStringSync(JsonEncoder.withIndent('  ').convert(arbContent)); // 2 spaces indent
   print('✅ Generated ${arbFile.path} ($count entries)');
 }
