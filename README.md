@@ -15,8 +15,8 @@ An open-source tool for converting Excel files into ARB (Application Resource Bu
    
      | Key     | Value       | Description (optional) | Placeholder (name:type) |
      |---------|-------------|------------------------|------------------------|
-     | hello   | မင်္ဂလာပါ  | Greeting text         | name:String , age: Int |
-     | goodbye | နုတ်ဆက်ပါတယ် | Farewell text         | name:String , age: Int |
+     | hello   | မင်္ဂလာပါ  | Greeting text         | name:String , age: int |
+     | goodbye | နုတ်ဆက်ပါတယ် | Farewell text         | name:String , age: int |
 
    Example files available in: `resources/l10n/`
 
