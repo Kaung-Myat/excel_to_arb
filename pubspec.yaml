@@ -1,9 +1,11 @@
 name: excel_to_arb
-description: Converts Excel files to ARB format
-version: 1.0.0
+description: A command-line tool to convert Excel localization files into ARB (Application Resource Bundle) format for Flutter/Dart internationalization.
+version: 1.0.3
 
 environment:
   sdk: ^3.7.2
 
-dev_dependencies:
+dependencies:
+  path: ^1.8.0
   excel: ^4.0.6
+  args: ^2.4.0
